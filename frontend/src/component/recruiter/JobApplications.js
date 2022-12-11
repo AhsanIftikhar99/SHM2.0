@@ -595,7 +595,7 @@ const ApplicationTile = (props) => {
           </Grid>
         </Grid>
         <Grid item container direction="column" xs={3}>
-          <Grid item>
+          <Grid item xs>
             <Button
               variant="contained"
               className={classes.statusBlock}

@@ -116,11 +116,11 @@ const CreateJobs = (props) => {
             >
               <Grid
                 container
-                direction="column"
+                direction="row"
                 alignItems="stretch"
-                spacing={3}
+                spacing={4}
               >
-                <Grid item>
+                <Grid item xs={6}>
                   <TextField
                     label="Title"
                     value={jobDetails.title}
@@ -131,7 +131,7 @@ const CreateJobs = (props) => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
                   <ChipInput
                     className={classes.inputBox}
                     label="Skills"
@@ -155,7 +155,7 @@ const CreateJobs = (props) => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
                   <TextField
                     select
                     label="Job Type"
@@ -171,7 +171,7 @@ const CreateJobs = (props) => {
                     <MenuItem value="Work From Home">Work From Home</MenuItem>
                   </TextField>
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
                   <TextField
                     select
                     label="Duration"
@@ -191,7 +191,7 @@ const CreateJobs = (props) => {
                     <MenuItem value={6}>6 Months</MenuItem>
                   </TextField>
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
                   <TextField
                     label="Salary"
                     type="number"
@@ -204,7 +204,7 @@ const CreateJobs = (props) => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
                   <TextField
                     label="Application Deadline"
                     type="datetime-local"
@@ -219,7 +219,7 @@ const CreateJobs = (props) => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
                   <TextField
                     label="Maximum Number Of Applicants"
                     type="number"
@@ -232,7 +232,7 @@ const CreateJobs = (props) => {
                     fullWidth
                   />
                 </Grid>
-                <Grid item>
+                <Grid item xs={6}>
                   <TextField
                     label="Positions Available"
                     type="number"

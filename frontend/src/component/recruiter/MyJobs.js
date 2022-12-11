@@ -186,7 +186,7 @@ const JobTile = (props) => {
               View Applications
             </Button>
           </Grid>
-          <Grid item>
+          <Grid item xs>
             <Button
               variant="contained"
               className={classes.statusBlock}
@@ -201,7 +201,7 @@ const JobTile = (props) => {
               Update Details
             </Button>
           </Grid>
-          <Grid item>
+          <Grid item xs>
             <Button
               variant="contained"
               color="secondary"
