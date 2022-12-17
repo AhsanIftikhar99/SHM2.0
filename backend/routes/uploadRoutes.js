@@ -18,6 +18,7 @@ router.post("/resume", upload.single("file"), (req, res) => {
     });
   } else {
     const filename = `${uuidv4()}${file.detectedFileExtension}`;
+    console.log({filename})
 
     pipeline(
       file.stream,

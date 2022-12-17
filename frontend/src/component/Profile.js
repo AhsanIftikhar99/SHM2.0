@@ -17,6 +17,8 @@ import FaceIcon from "@material-ui/icons/Face";
 import { SetPopupContext } from "../App";
 
 import apiList from "../lib/apiList";
+import { Avatar } from '@mui/material';
+
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -146,6 +148,10 @@ const Profile = (props) => {
       .then((response) => {
         console.log(response.data);
         setProfileDetails(response.data);
+        let profile=response?.data?.profile;
+        profile=profile.split("/")
+        console.log("profile",profile)
+        setProfileDetails({...profileDetails,resume:profile[3]})
         if (response.data.education.length > 0) {
           setEducation(
             response.data.education.map((edu) => ({
@@ -214,6 +220,9 @@ const Profile = (props) => {
     setOpen(false);
   };
 
+
+ 
+
   return (
     <>
       <Grid
@@ -225,6 +234,9 @@ const Profile = (props) => {
       >
         <Grid item>
           <Typography variant="h2">Profile</Typography>
+        </Grid>
+        <Grid>
+          <Avatar alt="profileimage" style={{ width: '15rem', height: '15rem' }} src={profileDetails.profile} />
         </Grid>
         <Grid item xs>
           <Paper
@@ -275,6 +287,8 @@ const Profile = (props) => {
                   }}
                   fullWidth
                 />
+              </Grid>
+              <Grid>
               </Grid>
               <Grid item>
                 <FileUploadInput

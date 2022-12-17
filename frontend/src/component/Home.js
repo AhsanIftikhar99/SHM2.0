@@ -23,6 +23,9 @@ import SearchIcon from "@material-ui/icons/Search";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
+import ChipInput from "material-ui-chip-input";
+import FileUploadInput from "../lib/FileUploadInput";
+import DescriptionIcon from "@material-ui/icons/Description";
 
 import { SetPopupContext } from "../App";
 
@@ -55,6 +58,14 @@ const JobTile = (props) => {
   const classes = useStyles();
   const { job } = props;
   const setPopup = useContext(SetPopupContext);
+  const [jobDetails, setJobDetails] = useState({
+    name: '',
+    phoneNum: '',
+    email: '',
+    skillsets: [],
+    Education: '',
+    resume:'',
+  });
 
   const [open, setOpen] = useState(false);
   const [sop, setSop] = useState("");
@@ -98,6 +109,13 @@ const JobTile = (props) => {
       });
   };
 
+  const handleInput = (key, value) => {
+    setJobDetails({
+      ...jobDetails,
+      [key]: value,
+    });
+  };
+
   const deadline = new Date(job.deadline).toLocaleDateString();
 
   return (
@@ -126,6 +144,9 @@ const JobTile = (props) => {
           </Grid>
         </Grid>
         <Grid item xs={3}>
+        </Grid>
+        <Grid item xs={5}></Grid>
+        <Grid item xs={2}>
           <Button
             variant="contained"
             color="primary"
@@ -134,12 +155,14 @@ const JobTile = (props) => {
               setOpen(true);
             }}
             disabled={userType() === "recruiter"}
+
           >
             Apply
           </Button>
         </Grid>
       </Grid>
       <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
+
         <Paper
           style={{
             padding: "20px",
@@ -151,23 +174,128 @@ const JobTile = (props) => {
             alignItems: "center",
           }}
         >
-          <TextField
-            label="Write SOP (upto 250 words)"
-            multiline
-            rows={8}
-            style={{ width: "100%", marginBottom: "30px" }}
-            variant="outlined"
-            value={sop}
-            onChange={(event) => {
-              if (
-                event.target.value.split(" ").filter(function (n) {
-                  return n != "";
-                }).length <= 250
-              ) {
-                setSop(event.target.value);
-              }
-            }}
-          />
+          <Grid style={{ marginBottom: '50px ' }}>
+            <Typography variant="h4">Apply for a Job</Typography>
+          </Grid>
+          <Grid
+            container
+            direction="row"
+            alignItems="stretch"
+            spacing={4}
+          >
+            <Grid item xs={6}>
+              <TextField
+                label="Name"
+                value={jobDetails.name}
+                onChange={(event) =>
+                  handleInput("name", event.target.value)
+                }
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Phone Number"
+                value={jobDetails.phoneNum}
+                onChange={(event) =>
+                  handleInput("phoneNum", event.target.value)
+                }
+                variant="outlined"
+                fullWidth
+                inputProps={{ maxLength: 11 }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Email"
+                value={jobDetails.email}
+                onChange={(event) =>
+                  handleInput("email", event.target.value)
+                }
+                variant="outlined"
+                fullWidth
+                type={'email'}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <ChipInput
+                className={classes.inputBox}
+                label="Skills"
+                variant="outlined"
+                helperText="Press enter to add skillsets"
+                value={jobDetails.skillsets}
+                onAdd={(chip) =>
+                  setJobDetails({
+                    ...jobDetails,
+                    skillsets: [...jobDetails.skillsets, chip],
+                  })
+                }
+                onDelete={(chip, index) => {
+                  let skillsets = jobDetails.skillsets;
+                  skillsets.splice(index, 1);
+                  setJobDetails({
+                    ...jobDetails,
+                    skillsets: skillsets,
+                  });
+                }}
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="Education"
+                value={jobDetails.Education}
+                onChange={(event) =>
+                  handleInput("Education", event.target.value)
+                }
+                variant="outlined"
+                fullWidth
+              />
+            </Grid>
+            <Grid item xs={6}>
+            <FileUploadInput
+                className={classes.inputBox}
+                label="Resume (.pdf)"
+                icon={<DescriptionIcon />}
+                value={jobDetails.resume}
+                onChange={(event) =>{
+                  // setFiles({
+                  //   ...files,
+                  //   resume: event.target.files[0],
+                  // })
+                  console.log("running",{event:event.target.files});
+                  setJobDetails({
+                    ...jobDetails,
+                    resume:event.target.files[0]
+                  })}
+                }
+                uploadTo={apiList.uploadResume}
+                handleInput={handleInput}
+                identifier={"resume"}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Write SOP (upto 250 words)"
+                multiline
+                rows={8}
+                style={{ width: "100%", marginBottom: "30px" }}
+                variant="outlined"
+                value={sop}
+                onChange={(event) => {
+                  if (
+                    event.target.value.split(" ").filter(function (n) {
+                      return n != "";
+                    }).length <= 250
+                  ) {
+                    setSop(event.target.value);
+                  }
+                }}
+              />
+            </Grid>
+          </Grid>
+
           <Button
             variant="contained"
             color="primary"
@@ -204,7 +332,7 @@ const FilterPopup = (props) => {
               item
               xs={9}
               justify="space-around"
-              // alignItems="center"
+            // alignItems="center"
             >
               <Grid item>
                 <FormControlLabel

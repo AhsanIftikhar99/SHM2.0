@@ -138,7 +138,7 @@ const ApplicationTile = (props) => {
           </Grid>
           <Grid item>Posted By: {application.recruiter.name}</Grid>
           <Grid item>Role : {application.job.jobType}</Grid>
-          <Grid item>Salary : &#8377; {application.job.salary} per month</Grid>
+          <Grid item>Salary :  {application.job.salary} PKR per month</Grid>
           <Grid item>
             Duration :{" "}
             {application.job.duration !== 0
@@ -152,39 +152,41 @@ const ApplicationTile = (props) => {
           </Grid>
           <Grid item>Applied On: {appliedOn.toLocaleDateString()}</Grid>
           {application.status === "accepted" ||
-          application.status === "finished" ? (
+            application.status === "finished" ? (
             <Grid item>Joined On: {joinedOn.toLocaleDateString()}</Grid>
           ) : null}
         </Grid>
-        <Grid item container direction="column" xs={3}>
-          <Grid item xs>
-            <Paper
+        <Grid item xs={3}></Grid>
+        <Grid item xs={4}></Grid>
+        <Grid item xs={2} style={{marginRight:'5px'}}>
+          <Paper
+            className={classes.statusBlock}
+            style={{
+              background: colorSet[application.status],
+              color: "#ffffff",
+              height:'35px'
+            }}
+          >
+            {application.status}
+          </Paper>
+        </Grid>
+        {application.status === "accepted" ||
+          application.status === "finished" ? (
+          <Grid item xs={2}>
+            <Button
+              variant="contained"
+              color="primary"
               className={classes.statusBlock}
-              style={{
-                background: colorSet[application.status],
-                color: "#ffffff",
+              onClick={() => {
+                fetchRating();
+                setOpen(true);
               }}
             >
-              {application.status}
-            </Paper>
+              Rate Job
+            </Button>
           </Grid>
-          {application.status === "accepted" ||
-          application.status === "finished" ? (
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.statusBlock}
-                onClick={() => {
-                  fetchRating();
-                  setOpen(true);
-                }}
-              >
-                Rate Job
-              </Button>
-            </Grid>
-          ) : null}
-        </Grid>
+        ) : null}
+
       </Grid>
       <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
         <Paper
@@ -249,6 +251,8 @@ const Applications = (props) => {
         });
       });
   };
+
+  console.log({ applications })
 
   return (
     <Grid
