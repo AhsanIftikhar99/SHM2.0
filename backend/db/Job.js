@@ -21,7 +21,7 @@ let schema = new mongoose.Schema(
           validator: function (value) {
             return value > 0;
           },
-          msg: "maxApplicants should greater than 0",
+          msg: "maxApplicants must be greater than 0",
         },
       ],
     },

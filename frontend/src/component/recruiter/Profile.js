@@ -121,7 +121,7 @@ const Profile = (props) => {
         item
         direction="column"
         alignItems="center"
-        style={{ padding: "30px", minHeight: "93vh" }}
+        style={{ padding: "30px", minHeight: "93vh",width:'50%',opacity:0.9 }}
       >
         <Grid item>
           <Typography variant="h2">Profile</Typography>
@@ -129,12 +129,13 @@ const Profile = (props) => {
         <Grid item xs style={{ width: "100%" }}>
           <Paper
             style={{
-              padding: "20px",
+              padding: "80px",
               outline: "none",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              marginTop:'20px'
               //   width: "60%",
             }}
           >

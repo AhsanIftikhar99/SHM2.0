@@ -24,7 +24,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
-
+import Box from '@mui/material/Box';
 import { SetPopupContext } from "../../App";
 
 import apiList from "../../lib/apiList";
@@ -148,7 +148,8 @@ const JobTile = (props) => {
   const postedOn = new Date(job.dateOfPosting);
 
   return (
-    <Paper className={classes.jobTileOuter} elevation={3}>
+
+    <Paper className={classes.jobTileOuter} elevation={3} style={{ width: '50%', marginLeft: '25%' }}>
       <Grid container>
         <Grid container item xs={9} spacing={1} direction="column">
           <Grid item>
@@ -175,45 +176,53 @@ const JobTile = (props) => {
             ))}
           </Grid>
         </Grid>
-        <Grid item container direction="column" xs={3}>
-          <Grid item xs>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.statusBlock}
-              onClick={() => handleClick(`/job/applications/${job._id}`)}
-            >
-              View Applications
-            </Button>
-          </Grid>
-          <Grid item xs>
-            <Button
-              variant="contained"
-              className={classes.statusBlock}
-              onClick={() => {
-                setOpenUpdate(true);
-              }}
-              style={{
-                background: "#FC7A1E",
-                color: "#fff",
-              }}
-            >
-              Update Details
-            </Button>
-          </Grid>
-          <Grid item xs>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.statusBlock}
-              onClick={() => {
-                setOpen(true);
-              }}
-            >
-              Delete Job
-            </Button>
-          </Grid>
+        {/* <Grid item container direction="column" xs={3}> */}
+        <Grid item xs={3}></Grid>
+        <Grid item xs={3}></Grid>
+        <Grid item xs={9} style={{ paddingTop: '50px' }}>
+
+
+          <Button
+            style={{ width: '22%', height: '40px', float: 'right', marginRight: '5px' }}
+            variant="contained"
+            color="secondary"
+            className={classes.statusBlock}
+            onClick={() => {
+              setOpen(true);
+            }}
+          >
+            Delete Job
+          </Button>
+
+
+          <Button
+            variant="contained"
+            className={classes.statusBlock}
+            color="primary"
+            onClick={() => {
+              setOpenUpdate(true);
+            }}
+            style={{
+              width: '22%', height: '40px', float: 'right', marginRight: '5px'
+            }}
+          >
+            Update Job
+          </Button>
+
+
+
+          <Button
+            style={{ width: '20%', height: '40px', float: 'right',marginRight: '5px' }}
+            variant="contained"
+            color="primary"
+            className={classes.statusBlock}
+            onClick={() => handleClick(`/job/applications/${job._id}`)}
+          >
+            View Job
+          </Button>
+
         </Grid>
+        {/* </Grid> */}
       </Grid>
       <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
         <Paper
@@ -223,19 +232,19 @@ const JobTile = (props) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            minWidth: "30%",
+            minWidth: "40%",
             alignItems: "center",
           }}
         >
-          <Typography variant="h4" style={{ marginBottom: "10px" }}>
-            Are you sure?
+          <Typography variant="h5" style={{ marginBottom: "20px" }}>
+            Are you sure you want to delete this JobAd?
           </Typography>
-          <Grid container justify="center" spacing={5}>
+          <Grid container justify="center" spacing={0}>
             <Grid item>
               <Button
                 variant="contained"
                 color="secondary"
-                style={{ padding: "10px 50px" }}
+                style={{ padding: "10px 50px", width: '20%', height: '35px' }}
                 onClick={() => handleDelete()}
               >
                 Delete
@@ -245,7 +254,7 @@ const JobTile = (props) => {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ padding: "10px 50px" }}
+                style={{ padding: "10px 50px", width: '20%', height: '35px' }}
                 onClick={() => handleClose()}
               >
                 Cancel
@@ -266,7 +275,7 @@ const JobTile = (props) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            minWidth: "30%",
+            minWidth: "40%",
             alignItems: "center",
           }}
         >
@@ -321,12 +330,12 @@ const JobTile = (props) => {
               />
             </Grid>
           </Grid>
-          <Grid container justify="center" spacing={5}>
+          <Grid container justify="center" spacing={0}>
             <Grid item>
               <Button
                 variant="contained"
                 color="secondary"
-                style={{ padding: "10px 50px" }}
+                style={{ padding: "10px 50px", width: '20%', height: '35px' }}
                 onClick={() => handleJobUpdate()}
               >
                 Update
@@ -336,7 +345,7 @@ const JobTile = (props) => {
               <Button
                 variant="contained"
                 color="primary"
-                style={{ padding: "10px 50px" }}
+                style={{ padding: "10px 50px", width: '20%', height: '35px' }}
                 onClick={() => handleCloseUpdate()}
               >
                 Cancel
@@ -371,7 +380,7 @@ const FilterPopup = (props) => {
               item
               xs={9}
               justify="space-around"
-              // alignItems="center"
+            // alignItems="center"
             >
               <Grid item>
                 <FormControlLabel
@@ -792,7 +801,7 @@ const MyJobs = (props) => {
         item
         direction="column"
         alignItems="center"
-        style={{ padding: "30px", minHeight: "93vh" }}
+        style={{ padding: "30px", minHeight: "93vh", opacity: 0.9 }}
       >
         <Grid
           item
@@ -804,7 +813,7 @@ const MyJobs = (props) => {
           <Grid item xs>
             <Typography variant="h2">My Jobs</Typography>
           </Grid>
-          <Grid item xs>
+          <Grid item xs style={{ marginTop: '20px' }}>
             <TextField
               label="Search Jobs"
               value={searchOptions.query}

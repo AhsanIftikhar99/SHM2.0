@@ -164,7 +164,7 @@ const ApplicationTile = (props) => {
             style={{
               background: colorSet[application.status],
               color: "#ffffff",
-              height:'35px'
+              height:'30px'
             }}
           >
             {application.status}
@@ -174,6 +174,9 @@ const ApplicationTile = (props) => {
           application.status === "finished" ? (
           <Grid item xs={2}>
             <Button
+               style={{   
+                height:'30px'
+              }}
               variant="contained"
               color="primary"
               className={classes.statusBlock}
@@ -260,7 +263,7 @@ const Applications = (props) => {
       item
       direction="column"
       alignItems="center"
-      style={{ padding: "30px", minHeight: "93vh" }}
+      style={{ padding: "30px", minHeight: "93vh",opacity:0.9,width:'50%' }}
     >
       <Grid item>
         <Typography variant="h2">Applications</Typography>

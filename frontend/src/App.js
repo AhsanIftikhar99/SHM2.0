@@ -29,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: "64px",
     boxSizing: "border-box",
     width: "100%",
+      backgroundImage:`url("https://images.unsplash.com/photo-1588064643233-49210b27b82e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")`,
+      backgroundSize:'cover',
+    // opacity:0.8,
   },
 }));
 
@@ -94,7 +97,7 @@ function App() {
                 <ErrorPage />
               </Route>
             </Switch>
-          </Grid>
+            </Grid>
         </Grid>
         <MessagePopup
           open={popup.open}

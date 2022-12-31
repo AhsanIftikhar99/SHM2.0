@@ -64,7 +64,7 @@ const JobTile = (props) => {
     email: '',
     skillsets: [],
     Education: '',
-    resume:'',
+    resume: '',
   });
 
   const [open, setOpen] = useState(false);
@@ -254,21 +254,22 @@ const JobTile = (props) => {
               />
             </Grid>
             <Grid item xs={6}>
-            <FileUploadInput
+              <FileUploadInput
                 className={classes.inputBox}
                 label="Resume (.pdf)"
                 icon={<DescriptionIcon />}
                 value={jobDetails.resume}
-                onChange={(event) =>{
+                onChange={(event) => {
                   // setFiles({
                   //   ...files,
                   //   resume: event.target.files[0],
                   // })
-                  console.log("running",{event:event.target.files});
+                  console.log("running", { event: event.target.files });
                   setJobDetails({
                     ...jobDetails,
-                    resume:event.target.files[0]
-                  })}
+                    resume: event.target.files[0]
+                  })
+                }
                 }
                 uploadTo={apiList.uploadResume}
                 handleInput={handleInput}
@@ -753,12 +754,13 @@ const Home = (props) => {
 
   return (
     <>
+    
       <Grid
         container
         item
         direction="column"
         alignItems="center"
-        style={{ padding: "30px", minHeight: "93vh" }}
+        style={{ padding: "30px", minHeight: "93vh",opacity:0.9,width:'50%' }}
       >
         <Grid
           item
@@ -815,6 +817,7 @@ const Home = (props) => {
         >
           {jobs.length > 0 ? (
             jobs.map((job) => {
+              console.log("JOBS", { job })
               return <JobTile job={job} />;
             })
           ) : (

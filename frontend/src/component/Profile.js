@@ -7,6 +7,7 @@ import {
   Paper,
   makeStyles,
   TextField,
+  Avatar
 } from "@material-ui/core";
 import axios from "axios";
 import ChipInput from "material-ui-chip-input";
@@ -16,8 +17,8 @@ import FaceIcon from "@material-ui/icons/Face";
 
 import { SetPopupContext } from "../App";
 
-import apiList from "../lib/apiList";
-import { Avatar } from '@mui/material';
+import apiList, { server } from "../lib/apiList";
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -147,11 +148,7 @@ const Profile = (props) => {
       })
       .then((response) => {
         console.log(response.data);
-        setProfileDetails(response.data);
-        let profile=response?.data?.profile;
-        profile=profile.split("/")
-        console.log("profile",profile)
-        setProfileDetails({...profileDetails,resume:profile[3]})
+        setProfileDetails(response.data)
         if (response.data.education.length > 0) {
           setEducation(
             response.data.education.map((edu) => ({
@@ -181,7 +178,7 @@ const Profile = (props) => {
   };
 
   const handleUpdate = () => {
-    console.log(education);
+
 
     let updatedDetails = {
       ...profileDetails,
@@ -194,7 +191,7 @@ const Profile = (props) => {
           return obj;
         }),
     };
-
+    console.log("Updated obj", updatedDetails);
     axios
       .put(apiList.user, updatedDetails, {
         headers: {
@@ -221,107 +218,112 @@ const Profile = (props) => {
   };
 
 
- 
+
 
   return (
     <>
-      <Grid
-        container
-        item
-        direction="column"
-        alignItems="center"
-        style={{ padding: "30px", minHeight: "93vh" }}
-      >
-        <Grid item>
-          <Typography variant="h2">Profile</Typography>
-        </Grid>
-        <Grid>
-          <Avatar alt="profileimage" style={{ width: '15rem', height: '15rem' }} src={profileDetails.profile} />
-        </Grid>
-        <Grid item xs>
-          <Paper
-            style={{
-              padding: "20px",
-              outline: "none",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+      <Grid style={{ paddingBottom: '20px' }}></Grid>
+        <Paper elevation={3} style={{ opacity: 0.9 }}>
+          <Grid
+            container
+            item
+            direction="column"
+            alignItems="center"
+            style={{ padding: "30px", minHeight: "93vh" }}
           >
-            <Grid container direction="column" alignItems="stretch" spacing={3}>
-              <Grid item>
-                <TextField
-                  label="Name"
-                  value={profileDetails.name}
-                  onChange={(event) => handleInput("name", event.target.value)}
-                  className={classes.inputBox}
-                  variant="outlined"
-                  fullWidth
-                />
-              </Grid>
-              <MultifieldInput
-                education={education}
-                setEducation={setEducation}
-              />
-              <Grid item>
-                <ChipInput
-                  className={classes.inputBox}
-                  label="Skills"
-                  variant="outlined"
-                  helperText="Press enter to add skills"
-                  value={profileDetails.skills}
-                  onAdd={(chip) =>
-                    setProfileDetails({
-                      ...profileDetails,
-                      skills: [...profileDetails.skills, chip],
-                    })
-                  }
-                  onDelete={(chip, index) => {
-                    let skills = profileDetails.skills;
-                    skills.splice(index, 1);
-                    setProfileDetails({
-                      ...profileDetails,
-                      skills: skills,
-                    });
-                  }}
-                  fullWidth
-                />
-              </Grid>
-              <Grid>
-              </Grid>
-              <Grid item>
-                <FileUploadInput
-                  className={classes.inputBox}
-                  label="Resume (.pdf)"
-                  icon={<DescriptionIcon />}
-                  uploadTo={apiList.uploadResume}
-                  handleInput={handleInput}
-                  identifier={"resume"}
-                />
-              </Grid>
-              <Grid item>
-                <FileUploadInput
-                  className={classes.inputBox}
-                  label="Profile Photo (.jpg/.png)"
-                  icon={<FaceIcon />}
-                  uploadTo={apiList.uploadProfileImage}
-                  handleInput={handleInput}
-                  identifier={"profile"}
-                />
-              </Grid>
+            <Grid item>
+              <Typography variant="h3">Profile</Typography>
             </Grid>
-            <Button
-              variant="contained"
-              color="primary"
-              style={{ padding: "10px 50px", marginTop: "30px" }}
-              onClick={() => handleUpdate()}
-            >
-              Update Details
-            </Button>
-          </Paper>
-        </Grid>
-      </Grid>
+            <Grid style={{ paddingTop: '50px', paddingBottom: '50px' }}>
+              <Avatar alt="profileimage" style={{ width: '15rem', height: '15rem' }} src={`${server}${profileDetails.profile}`} />
+            </Grid>
+            <Grid item xs>
+              <Paper
+                elevation={2}
+                style={{
+                  padding: "20px",
+                  outline: "none",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Grid container direction="column" alignItems="stretch" spacing={3}>
+                  <Grid item>
+                    <TextField
+                      label="Name"
+                      value={profileDetails.name}
+                      onChange={(event) => handleInput("name", event.target.value)}
+                      className={classes.inputBox}
+                      variant="outlined"
+                      fullWidth
+                    />
+                  </Grid>
+                  <MultifieldInput
+                    education={education}
+                    setEducation={setEducation}
+                  />
+                  <Grid item>
+                    <ChipInput
+                      className={classes.inputBox}
+                      label="Skills"
+                      variant="outlined"
+                      helperText="Press enter to add skills"
+                      value={profileDetails.skills}
+                      onAdd={(chip) =>
+                        setProfileDetails({
+                          ...profileDetails,
+                          skills: [...profileDetails.skills, chip],
+                        })
+                      }
+                      onDelete={(chip, index) => {
+                        let skills = profileDetails.skills;
+                        skills.splice(index, 1);
+                        setProfileDetails({
+                          ...profileDetails,
+                          skills: skills,
+                        });
+                      }}
+                      fullWidth
+                    />
+                  </Grid>
+                  <Grid>
+                  </Grid>
+                  <Grid item>
+                    <FileUploadInput
+                      className={classes.inputBox}
+                      label="Update Resume (.pdf)"
+                      icon={<DescriptionIcon />}
+                      uploadTo={apiList.uploadResume}
+                      handleInput={handleInput}
+                      identifier={"resume"}
+                    />
+                  </Grid>
+                  <Grid item>
+                    <FileUploadInput
+                      className={classes.inputBox}
+                      label="Update Profile Photo (.jpg/.png)"
+                      icon={<FaceIcon />}
+                      uploadTo={apiList.uploadProfileImage}
+                      handleInput={handleInput}
+                      identifier={"profile"}
+                    />
+                  </Grid>
+                </Grid>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ padding: "10px 50px", marginTop: "30px" }}
+                  onClick={() => handleUpdate()}
+                >
+                  Update Details
+                </Button>
+              </Paper>
+            </Grid>
+          </Grid>
+        </Paper>
+      <Grid style={{ paddingBottom: '20px' }}></Grid>
       {/* <Modal open={open} onClose={handleClose} className={classes.popupDialog}> */}
 
       {/* </Modal> */}

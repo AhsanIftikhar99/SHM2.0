@@ -523,11 +523,11 @@ const ApplicationTile = (props) => {
   };
 
   return (
-    <Paper className={classes.jobTileOuter} elevation={3}>
+    <Paper className={classes.jobTileOuter} style={{ width: '50%', marginLeft: '25%', paddingBottom: '50px' }} elevation={3}>
       <Grid container>
         <Grid
           item
-          xs={2}
+          xs={3}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -535,11 +535,12 @@ const ApplicationTile = (props) => {
           }}
         >
           <Avatar
+            style={{ width: '10rem', height: '10rem' }}
             src={`${server}${application.jobApplicant.profile}`}
             className={classes.avatar}
           />
         </Grid>
-        <Grid container item xs={7} spacing={1} direction="column">
+        <Grid container item xs={9} spacing={1} direction="column">
           <Grid item>
             <Typography variant="h5">
               {application.jobApplicant.name}
@@ -567,47 +568,45 @@ const ApplicationTile = (props) => {
             ))}
           </Grid>
         </Grid>
-        <Grid item container direction="column" xs={3}>
-          <Grid item xs>
-            <Button
-              variant="contained"
-              className={classes.statusBlock}
-              color="primary"
-              onClick={() => getResume()}
-            >
-              Download Resume
-            </Button>
-          </Grid>
-          <Grid item container xs>
-            {/* {buttonSet[application.status]} */}
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.statusBlock}
-              style={{
-                background: "#09BC8A",
-              }}
-              onClick={() => {
-                setOpenEndJob(true);
-              }}
-            >
-              End Job
-            </Button>
-          </Grid>
-          <Grid item xs>
-            <Button
-              variant="contained"
-              color="secondary"
-              className={classes.statusBlock}
-              onClick={() => {
-                setOpen(true);
-              }}
-            >
-              Rate Applicant
-            </Button>
-          </Grid>
-        </Grid>
       </Grid>
+      <Grid item style={{ float: 'right',marginTop:'100px' }} xs={12}>
+        <Button
+          style={{marginRight:'5px'}}
+          variant="contained"
+          // className={classes.statusBlock}
+          color="primary"
+          onClick={() => getResume()}
+        >
+          Download Resume
+        </Button>
+
+        <Button
+          style={{marginRight:'5px',background: "#09BC8A"}}
+          variant="contained"
+          color="primary"
+          // className={classes.statusBlock}
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          Rate Applicant
+        </Button>
+
+        {/* {buttonSet[application.status]} */}
+        <Button
+          
+          variant="contained"
+          color="secondary"
+          // className={classes.statusBlock}
+          onClick={() => {
+            setOpenEndJob(true);
+          }}
+        >
+          End Job
+        </Button>
+
+      </Grid>
+
       <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
         <Paper
           style={{
@@ -773,7 +772,7 @@ const AcceptedApplicants = (props) => {
         item
         direction="column"
         alignItems="center"
-        style={{ padding: "30px", minHeight: "93vh" }}
+        style={{ padding: "30px", minHeight: "93vh",opacity: 0.9 }}
       >
         <Grid item>
           <Typography variant="h2">Employees</Typography>
@@ -794,10 +793,7 @@ const AcceptedApplicants = (props) => {
         >
           {applications.length > 0 ? (
             applications.map((obj) => (
-              <Grid item>
-                {/* {console.log(obj)} */}
-                <ApplicationTile application={obj} getData={getData} />
-              </Grid>
+              <ApplicationTile application={obj} getData={getData} />
             ))
           ) : (
             <Typography variant="h5" style={{ textAlign: "center" }}>

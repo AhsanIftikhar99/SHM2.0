@@ -40,6 +40,14 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     textTransform: "uppercase",
   },
+  CustomBtn:{
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textTransform: "uppercase",
+  },
   jobTileOuter: {
     padding: "30px",
     margin: "20px 0",
@@ -338,6 +346,7 @@ const FilterPopup = (props) => {
 };
 
 const ApplicationTile = (props) => {
+  console.log("PROPS",{props})
   const classes = useStyles();
   const { application, getData } = props;
   const setPopup = useContext(SetPopupContext);
@@ -425,30 +434,33 @@ const ApplicationTile = (props) => {
   const buttonSet = {
     applied: (
       <>
-        <Grid item xs>
+        {/* <Grid item xs> */}
           <Button
-            className={classes.statusBlock}
+            // className={classes.statusBlock}
             style={{
               background: colorSet["shortlisted"],
               color: "#ffffff",
+              float:'right'
             }}
             onClick={() => updateStatus("shortlisted")}
           >
             Shortlist
           </Button>
-        </Grid>
-        <Grid item xs>
+        {/* </Grid>
+        <Grid item xs> */}
           <Button
-            className={classes.statusBlock}
+            // className={classes.statusBlock}
             style={{
               background: colorSet["rejected"],
               color: "#ffffff",
+              float:'right',
+              marginLeft:'5px'
             }}
             onClick={() => updateStatus("rejected")}
           >
             Reject
           </Button>
-        </Grid>
+        {/* </Grid> */}
       </>
     ),
     shortlisted: (
@@ -471,6 +483,7 @@ const ApplicationTile = (props) => {
             style={{
               background: colorSet["rejected"],
               color: "#ffffff",
+              marginLeft:'5px'
             }}
             onClick={() => updateStatus("rejected")}
           >
@@ -542,11 +555,11 @@ const ApplicationTile = (props) => {
   };
 
   return (
-    <Paper className={classes.jobTileOuter} elevation={3}>
+    <Paper style={{marginLeft:'23%',width:'55%',paddingBottom:'40px'}} className={classes.jobTileOuter} elevation={3}>
       <Grid container>
         <Grid
           item
-          xs={2}
+          xs={3}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -594,11 +607,13 @@ const ApplicationTile = (props) => {
             ))}
           </Grid>
         </Grid>
-        <Grid item container direction="column" xs={3}>
-          <Grid item xs>
+        <Grid xs={12} item style={{marginBottom:'70px'}}></Grid>
+        <Grid xs={6}></Grid>
+          <Grid item xs={3} style={{marginRight:'5px'}}>
             <Button
+              style={{float:'right'}}
               variant="contained"
-              className={classes.statusBlock}
+              // className={classes.CustomBtn}
               color="primary"
               onClick={() => getResume()}
             >
@@ -608,7 +623,7 @@ const ApplicationTile = (props) => {
           <Grid item container xs>
             {buttonSet[application.status]}
           </Grid>
-        </Grid>
+        
       </Grid>
       <Modal open={open} onClose={handleClose} className={classes.popupDialog}>
         <Paper
