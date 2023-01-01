@@ -26,7 +26,7 @@ import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
 import ChipInput from "material-ui-chip-input";
 import FileUploadInput from "../lib/FileUploadInput";
 import DescriptionIcon from "@material-ui/icons/Description";
-
+import "typeface-roboto"
 import { SetPopupContext } from "../App";
 
 import apiList from "../lib/apiList";
@@ -170,7 +170,7 @@ const JobTile = (props) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            minWidth: "50%",
+            width: "65%",
             alignItems: "center",
           }}
         >
@@ -180,8 +180,8 @@ const JobTile = (props) => {
           <Grid
             container
             direction="row"
-            alignItems="stretch"
-            spacing={4}
+            // alignItems="stretch"
+            spacing={2}
           >
             <Grid item xs={6}>
               <TextField
@@ -206,7 +206,7 @@ const JobTile = (props) => {
                 inputProps={{ maxLength: 11 }}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} style={{paddingTop:'20px'}}>
               <TextField
                 label="Email"
                 value={jobDetails.email}
@@ -218,7 +218,7 @@ const JobTile = (props) => {
                 type={'email'}
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} style={{paddingTop:'20px'}}>
               <ChipInput
                 className={classes.inputBox}
                 label="Skills"
@@ -242,7 +242,7 @@ const JobTile = (props) => {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} style={{paddingTop:'20px'}}>
               <TextField
                 label="Education"
                 value={jobDetails.Education}
@@ -253,7 +253,7 @@ const JobTile = (props) => {
                 fullWidth
               />
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={6} style={{paddingTop:'20px'}}>
               <FileUploadInput
                 className={classes.inputBox}
                 label="Resume (.pdf)"
@@ -276,7 +276,7 @@ const JobTile = (props) => {
                 identifier={"resume"}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <TextField
                 label="Write SOP (upto 250 words)"
                 multiline
@@ -294,13 +294,13 @@ const JobTile = (props) => {
                   }
                 }}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
 
           <Button
             variant="contained"
             color="primary"
-            style={{ padding: "10px 50px" }}
+            style={{ marginTop:'20px'}}
             onClick={() => handleApply()}
           >
             Submit

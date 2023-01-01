@@ -87,7 +87,10 @@ let schema = new mongoose.Schema(
         },
       ],
     },
-    skillsets: [String],
+    skillsets: {
+      type:[String],
+      required: true,
+    },
     jobType: {
       type: String,
       required: true,
@@ -104,6 +107,7 @@ let schema = new mongoose.Schema(
     },
     salary: {
       type: Number,
+      required: true,
       validate: [
         {
           validator: Number.isInteger,

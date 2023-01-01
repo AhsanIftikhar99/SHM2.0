@@ -469,6 +469,7 @@ const ApplicationTile = (props) => {
         responseType: "blob",
       })
         .then((response) => {
+          console.log("Response",response)
           const file = new Blob([response.data], { type: "application/pdf" });
           const fileURL = URL.createObjectURL(file);
           window.open(fileURL);

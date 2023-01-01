@@ -7,14 +7,16 @@ import {
   Paper,
   makeStyles,
   TextField,
+  Avatar
 } from "@material-ui/core";
 import axios from "axios";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/material.css";
-
+import FileUploadInput from "../../lib/FileUploadInput";
+import FaceIcon from "@material-ui/icons/Face";
 import { SetPopupContext } from "../../App";
 
-import apiList from "../../lib/apiList";
+import apiList, { server } from "../../lib/apiList";
 
 const useStyles = makeStyles((theme) => ({
   body: {
@@ -37,6 +39,8 @@ const Profile = (props) => {
     name: "",
     bio: "",
     contactNumber: "",
+    profile: "",
+    companyName: ""
   });
 
   const [phone, setPhone] = useState("");
@@ -89,7 +93,7 @@ const Profile = (props) => {
         contactNumber: "",
       };
     }
-
+    console.log("profileState",profileDetails)
     axios
       .put(apiList.user, updatedDetails, {
         headers: {
@@ -121,7 +125,7 @@ const Profile = (props) => {
         item
         direction="column"
         alignItems="center"
-        style={{ padding: "30px", minHeight: "93vh",width:'50%',opacity:0.9 }}
+        style={{ padding: "30px", minHeight: "93vh", width: '50%', opacity: 0.9 }}
       >
         <Grid item>
           <Typography variant="h2">Profile</Typography>
@@ -135,10 +139,13 @@ const Profile = (props) => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
-              marginTop:'20px'
+              marginTop: '20px'
               //   width: "60%",
             }}
           >
+            <Grid style={{ paddingTop: '50px', paddingBottom: '50px' }}>
+              <Avatar alt="profileimage" style={{ width: '15rem', height: '15rem' }} src={`${server}${profileDetails.profile}`} />
+            </Grid>
             <Grid container direction="column" alignItems="stretch" spacing={3}>
               <Grid item>
                 <TextField
@@ -153,9 +160,20 @@ const Profile = (props) => {
               </Grid>
               <Grid item>
                 <TextField
-                  label="Bio (upto 250 words)"
+                  label="Company's Name"
+                  value={profileDetails.companyName}
+                  onChange={(event) => handleInput("companyName", event.target.value)}
+                  className={classes.inputBox}
+                  variant="outlined"
+                  fullWidth
+                  style={{ width: "100%" }}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  label="Company Info"
                   multiline
-                  rows={8}
+                  minRows={4}
                   style={{ width: "100%" }}
                   variant="outlined"
                   value={profileDetails.bio}
@@ -170,6 +188,17 @@ const Profile = (props) => {
                   }}
                 />
               </Grid>
+              <Grid item>
+                <FileUploadInput
+                  className={classes.inputBox}
+                  label="Update Profile Photo (.jpg/.png)"
+                  icon={<FaceIcon />}
+                  uploadTo={apiList.uploadProfileImage}
+                  handleInput={handleInput}
+                  identifier={"profile"}
+                />
+              </Grid>
+
               <Grid
                 item
                 style={{
@@ -188,7 +217,7 @@ const Profile = (props) => {
             <Button
               variant="contained"
               color="primary"
-              style={{ padding: "10px 50px", marginTop: "30px" }}
+              style={{ marginTop: "30px", }}
               onClick={() => handleUpdate()}
             >
               Update Details

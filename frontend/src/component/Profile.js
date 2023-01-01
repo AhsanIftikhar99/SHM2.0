@@ -177,6 +177,40 @@ const Profile = (props) => {
     setOpen(true);
   };
 
+  const getResume = () => {
+    if (
+      profileDetails.resume &&
+      profileDetails.resume !== ""
+    ) {
+      const address = `${server}${profileDetails.resume}`;
+      console.log(address);
+      axios(address, {
+        method: "GET",
+        responseType: "blob",
+      })
+        .then((response) => {
+          console.log("Response",response)
+          const file = new Blob([response.data], { type: "application/pdf" });
+          const fileURL = URL.createObjectURL(file);
+          window.open(fileURL);
+        })
+        .catch((error) => {
+          console.log(error);
+          setPopup({
+            open: true,
+            severity: "error",
+            message: "Error",
+          });
+        });
+    } else {
+      setPopup({
+        open: true,
+        severity: "error",
+        message: "No resume found",
+      });
+    }
+  };
+
   const handleUpdate = () => {
 
 
@@ -311,14 +345,24 @@ const Profile = (props) => {
                     />
                   </Grid>
                 </Grid>
+                <Grid xs={12}  spacing={4} direction='column' alignItems='center' style={{marginTop:'20px'}}>
                 <Button
                   variant="contained"
                   color="primary"
-                  style={{ padding: "10px 50px", marginTop: "30px" }}
+                  style={{  }}
                   onClick={() => handleUpdate()}
                 >
                   Update Details
                 </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  style={{ marginLeft:'10px' }}
+                  onClick={() => getResume()}
+                >
+                  View Resume
+                </Button>
+                </Grid>
               </Paper>
             </Grid>
           </Grid>

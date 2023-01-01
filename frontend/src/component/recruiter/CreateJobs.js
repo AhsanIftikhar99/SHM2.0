@@ -56,6 +56,24 @@ const CreateJobs = (props) => {
 
   const handleUpdate = () => {
     console.log(jobDetails);
+    if(jobDetails.skillsets.length===0)
+    {
+      setPopup({
+        open: true,
+        severity: "error",
+        message: "Skills are required",
+      });
+      return
+    }
+    else if(jobDetails.salary===0)
+    {
+      setPopup({
+        open: true,
+        severity: "error",
+        message: "Salary cannot be 0",
+      });
+      return
+    }
     axios
       .post(apiList.jobs, jobDetails, {
         headers: {
@@ -134,6 +152,7 @@ const CreateJobs = (props) => {
                 >
                   <Grid item xs={6}>
                     <TextField
+                      required='true'
                       label="Title"
                       value={jobDetails.title}
                       onChange={(event) =>
@@ -145,6 +164,7 @@ const CreateJobs = (props) => {
                   </Grid>
                   <Grid item xs={6}>
                     <ChipInput
+                      required="true"
                       className={classes.inputBox}
                       label="Skills Required"
                       variant="outlined"
@@ -198,6 +218,7 @@ const CreateJobs = (props) => {
                   </Grid>
                   <Grid item xs={6}>
                     <TextField
+                      required="true"
                       label="Salary"
                       type="number"
                       variant="outlined"

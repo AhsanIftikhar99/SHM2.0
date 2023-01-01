@@ -149,7 +149,8 @@ const Login = (props) => {
             variant="contained"
             color="primary"
             onClick={() => handleLogin()}
-            className={classes.submitButton}
+            style={{borderRadius:'15px'}}
+            // className={classes.submitButton}
           >
             Login
           </Button>
