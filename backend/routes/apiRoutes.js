@@ -36,6 +36,7 @@ router.post("/jobs", jwtAuth, (req, res) => {
     duration: data.duration,
     salary: data.salary,
     rating: data.rating,
+    description: data.jobDescription
   });
 
   job
@@ -413,6 +414,10 @@ router.put("/user", jwtAuth, (req, res) => {
         }
         if (data.bio) {
           recruiter.bio = data.bio;
+        }
+        if(data.companyName)
+        {
+          recruiter.companyName=data.companyName
         }
         recruiter
           .save()

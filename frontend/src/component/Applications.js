@@ -3,18 +3,10 @@ import {
   Button,
   Chip,
   Grid,
-  IconButton,
-  InputAdornment,
   makeStyles,
   Paper,
-  TextField,
   Typography,
   Modal,
-  Slider,
-  FormControlLabel,
-  FormGroup,
-  MenuItem,
-  Checkbox,
 } from "@material-ui/core";
 import Rating from "@material-ui/lab/Rating";
 import axios from "axios";
@@ -231,6 +223,7 @@ const Applications = (props) => {
 
   useEffect(() => {
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getData = () => {

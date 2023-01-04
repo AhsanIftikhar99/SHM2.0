@@ -12,20 +12,19 @@ import {
   Modal,
   Slider,
   FormControlLabel,
-  FormGroup,
   MenuItem,
   Checkbox,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Rating from "@material-ui/lab/Rating";
-import Pagination from "@material-ui/lab/Pagination";
 import axios from "axios";
 import SearchIcon from "@material-ui/icons/Search";
+import DeleteIcon from "@material-ui/icons/Delete";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import ArrowUpwardIcon from "@material-ui/icons/ArrowUpward";
 import ArrowDownwardIcon from "@material-ui/icons/ArrowDownward";
-import Box from '@mui/material/Box';
 import { SetPopupContext } from "../../App";
+
 
 import apiList from "../../lib/apiList";
 
@@ -183,10 +182,11 @@ const JobTile = (props) => {
 
 
           <Button
-            style={{ width: '22%', height: '40px', float: 'right', marginRight: '5px' }}
-            variant="contained"
+            style={{ width: '28%', height: '40px', float: 'right', marginRight: '5px' }}
+            variant="outlined"
             color="secondary"
             className={classes.statusBlock}
+            startIcon={<DeleteIcon />}
             onClick={() => {
               setOpen(true);
             }}
@@ -203,7 +203,7 @@ const JobTile = (props) => {
               setOpenUpdate(true);
             }}
             style={{
-              width: '22%', height: '40px', float: 'right', marginRight: '5px'
+              width: '27%', height: '40px', float: 'right', marginRight: '5px'
             }}
           >
             Update Job
@@ -720,6 +720,7 @@ const MyJobs = (props) => {
   const setPopup = useContext(SetPopupContext);
   useEffect(() => {
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getData = () => {
@@ -736,19 +737,19 @@ const MyJobs = (props) => {
     if (searchOptions.jobType.wfh) {
       searchParams = [...searchParams, `jobType=Work%20From%20Home`];
     }
-    if (searchOptions.salary[0] != 0) {
+    if (searchOptions.salary[0] !== 0) {
       searchParams = [
         ...searchParams,
         `salaryMin=${searchOptions.salary[0] * 1000}`,
       ];
     }
-    if (searchOptions.salary[1] != 100) {
+    if (searchOptions.salary[1] !== 100) {
       searchParams = [
         ...searchParams,
         `salaryMax=${searchOptions.salary[1] * 1000}`,
       ];
     }
-    if (searchOptions.duration != "0") {
+    if (searchOptions.duration !== "0") {
       searchParams = [...searchParams, `duration=${searchOptions.duration}`];
     }
 

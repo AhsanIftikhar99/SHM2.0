@@ -13,6 +13,7 @@ const Logout = (props) => {
       severity: "success",
       message: "Logged out successfully",
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return <Redirect to="/login" />;
 };

@@ -3,7 +3,6 @@ import {
   Button,
   Grid,
   Typography,
-  Modal,
   Paper,
   makeStyles,
   TextField,
@@ -109,7 +108,8 @@ const MultifieldInput = (props) => {
 const Profile = (props) => {
   const classes = useStyles();
   const setPopup = useContext(SetPopupContext);
-  const [userData, setUserData] = useState();
+  // const [userData, setUserData] = useState();
+  // eslint-disable-next-line no-unused-vars
   const [open, setOpen] = useState(false);
 
   const [profileDetails, setProfileDetails] = useState({
@@ -137,6 +137,7 @@ const Profile = (props) => {
 
   useEffect(() => {
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getData = () => {
@@ -169,13 +170,13 @@ const Profile = (props) => {
       });
   };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
-  const editDetails = () => {
-    setOpen(true);
-  };
+  // const editDetails = () => {
+  //   setOpen(true);
+  // };
 
   const getResume = () => {
     if (
@@ -184,6 +185,7 @@ const Profile = (props) => {
     ) {
       const address = `${server}${profileDetails.resume}`;
       console.log(address);
+      console.log(profileDetails);
       axios(address, {
         method: "GET",
         responseType: "blob",

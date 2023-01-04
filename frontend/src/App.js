@@ -18,7 +18,7 @@ import RecruiterProfile from "./component/recruiter/Profile";
 import MessagePopup from "./lib/MessagePopup";
 import SearchResume from "./component/recruiter/searchResume";
 import isAuth, { userType } from "./lib/isAuth";
-
+import ResumeBuilder from "./component/resumeBuilder/Body";
 const useStyles = makeStyles((theme) => ({
   body: {
     display: "flex",
@@ -71,6 +71,9 @@ function App() {
               <Route exact path="/applications">
                 <Applications />
               </Route>
+              <Route exact path="/build-resume">
+                <ResumeBuilder />
+              </Route> 
               <Route exact path="/profile">
                 {userType() === "recruiter" ? (
                   <RecruiterProfile />

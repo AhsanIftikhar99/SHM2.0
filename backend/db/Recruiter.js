@@ -26,7 +26,7 @@ let schema = new mongoose.Schema(
     },
     companyName:{
       type:String,
-      required: true,
+      
     },
     profile: {
       type: String,

@@ -1,0 +1,14 @@
+.test{
+    background-color: pink;
+}
+
+.ResumeButton{
+    width: 50%;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: Bold;
+    font-size: 16px;
+    margin: 10px;
+    padding: 20px;
+    background-color: rgba(247, 247, 247, 0.85);
+ }

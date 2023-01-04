@@ -4,16 +4,11 @@ import {
   Chip,
   Grid,
   IconButton,
-  InputAdornment,
   makeStyles,
   Paper,
-  TextField,
   Typography,
   Modal,
-  Slider,
   FormControlLabel,
-  FormGroup,
-  MenuItem,
   Checkbox,
   Avatar,
 } from "@material-ui/core";
@@ -680,6 +675,7 @@ const JobApplications = (props) => {
 
   useEffect(() => {
     getData();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const getData = () => {
